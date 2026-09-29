@@ -1,28 +1,59 @@
-# Complete App Checklist
+# What's New in v2
 
-Version 2.0 · updated 2026-09-29 · what's new in this version: [CHANGES-v2.md](CHANGES-v2.md)
+Version 2.0 · 2026-09-29 · compared against v1 (commit `bb0b469`)
 
-Items and sections that say "if" are conditional. Skip them only after deciding they don't apply.
+This file lists **only the items added in v2**, grouped the same way as [list.md](list.md).
+The full checklist in [list.md](list.md) already includes all of them. Use this file to
+catch up if you already worked through v1.
+
+## Summary
+
+- **v1:** 17 sections, 306 items.
+- **v2:** 27 sections, 759 items: **453 new items** and **10 new sections**.
+- **Nothing was removed.** Every v1 item is still in `list.md`, worded the same.
+- **Renumbered:** Launch Prep moved from Section 17 to **Section 26**, so it now comes after
+  the new operational sections. Sections 1–16 keep their numbers.
+- **Main themes:** proving legal compliance (consent records, re-acceptance of updated Terms with stored proof, privacy law coverage, children,
+  consumer and auto-renewal law, hosted-content duties, IP), the notification system, the
+  admin dashboard with role-based access, observability, security hardening, testing, incident
+  response, company setup, AI features, and post-launch operations.
+
+| Section | New items | Note |
+|---|---:|---|
+| 1. Authentication | 28 |  |
+| 2. Onboarding | 5 |  |
+| 3. Profile | 6 |  |
+| 4. Settings | 7 |  |
+| 5. Color Themes & UI | 9 |  |
+| 6. Referral System | 8 |  |
+| 7. Ads | 9 |  |
+| 8. Monetization | 22 |  |
+| 9. Notifications | 28 |  |
+| 10. Legal & Compliance | 76 |  |
+| 11. Content Moderation (if user-generated content) | 12 |  |
+| 12. Support & Feedback | 7 |  |
+| 13. Core App Quality | 8 |  |
+| 14. Backend & Infra | 15 |  |
+| 15. Analytics | 9 |  |
+| 16. Web Presence | 27 |  |
+| 17. Admin Dashboard & Role-Based Access | 37 | New section |
+| 18. Observability & Monitoring | 23 | New section |
+| 19. Security Hardening | 16 | New section |
+| 20. Privacy Engineering & Data Governance | 12 | New section |
+| 21. Testing & QA | 21 | New section |
+| 22. Incident Response & Business Continuity | 9 | New section |
+| 23. Business & Company Setup | 12 | New section |
+| 24. AI Features (if the app uses AI) | 13 | New section |
+| 25. Documentation & Handoff | 9 | New section |
+| 26. Launch Prep | 14 |  |
+| 27. Post-Launch Operations | 11 | New section |
+
+---
 
 ## 1. Authentication
+*28 new items*
 
 ### Sign Up
-- [ ] Email + password signup.
-- [ ] Social login: Google, Apple (required by Apple if any social login exists), Facebook.
-- [ ] Phone/OTP signup as an option.
-- [ ] Email verification link or 6-digit code.
-- [ ] Password strength meter + minimum rules.
-- [ ] Show/hide password toggle.
-- [ ] Confirm password field.
-- [ ] Username availability check (live).
-- [ ] Referral code field (optional, prefilled from deep link).
-- [ ] Checkbox to accept Terms + Privacy Policy.
-- [ ] Marketing email opt-in (unchecked by default).
-- [ ] Age/DOB gate if content is restricted.
-- [ ] Country/region selector.
-- [ ] Captcha or bot protection on submit.
-- [ ] Clear inline error messages per field.
-- [ ] "Already have an account? Log in" link.
 - [ ] Passwords checked against known-breached password lists (e.g., HaveIBeenPwned k-anonymity API).
 - [ ] Proof of acceptance stored: Terms + Privacy version, timestamp, IP/device, and method (clickwrap record).
 - [ ] Consents kept separate: accepting Terms never implies marketing, analytics, or ad consent.
@@ -33,14 +64,6 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Disposable-email detection where fraud or abuse risk warrants it.
 
 ### Log In
-- [ ] Email/username + password login.
-- [ ] Social login buttons match signup options.
-- [ ] "Remember me" / stay logged in.
-- [ ] Biometric login (Face ID, Touch ID, fingerprint).
-- [ ] Magic link / passwordless option.
-- [ ] Rate limiting + account lockout after failed attempts.
-- [ ] Generic error text so emails can't be enumerated.
-- [ ] Session persistence with refresh tokens.
 - [ ] Passkeys (WebAuthn / platform passkeys).
 - [ ] Throttling per IP and per account, with progressive delays.
 - [ ] Idle and absolute session timeouts appropriate to data sensitivity.
@@ -49,23 +72,10 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] SSO (SAML/OIDC) if you sell to teams or businesses.
 
 ### Password Management
-- [ ] Forgot password flow via email.
-- [ ] Reset link expires (15–60 min).
-- [ ] Reset token is single-use.
-- [ ] Change password from inside settings (requires old password).
-- [ ] Email notification whenever password changes.
-- [ ] Log out all other devices after a reset.
 - [ ] Reset request shows the same message whether or not the account exists.
 - [ ] Outstanding reset tokens invalidated when the password changes.
 
 ### Security
-- [ ] Two-factor authentication (SMS, authenticator app, or email).
-- [ ] Backup/recovery codes for 2FA.
-- [ ] Active sessions list with device, location, last active.
-- [ ] Revoke individual sessions or log out everywhere.
-- [ ] Login alert email for new device/location.
-- [ ] Passwords hashed (bcrypt/argon2), never stored plain.
-- [ ] HTTPS everywhere + secure token storage (Keychain/Keystore).
 - [ ] Step-up re-authentication for sensitive actions (change email/phone, payment, disable 2FA, delete account).
 - [ ] Email change verifies the new address and notifies the old one with a "this wasn't me" lock link.
 - [ ] Refresh token rotation with reuse detection.
@@ -73,14 +83,6 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] MFA mandatory for all staff and admin accounts (see Section 17).
 
 ### Account Deletion
-- [ ] In-app "Delete account" button (Apple + Google require this).
-- [ ] Confirmation step with password or OTP re-auth.
-- [ ] Explain what gets deleted and what is kept.
-- [ ] Grace period (e.g. 30 days) before hard delete.
-- [ ] Cancel active subscriptions on delete.
-- [ ] Export my data before deleting.
-- [ ] Deactivate (pause) as a softer alternative.
-- [ ] Confirmation email after deletion.
 - [ ] Deletion reaches every processor (analytics, email, CRM, payment customer record, support desk, AI vendors).
 - [ ] Deleted data ages out of backups within a documented window and is never restored into live systems.
 - [ ] Records the law requires you to keep (invoices, tax, fraud) are kept minimal and disclosed in the Privacy Policy.
@@ -92,15 +94,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 2. Onboarding
-- [ ] Splash screen with logo.
-- [ ] 3–4 intro slides explaining core value.
-- [ ] Skip button on every onboarding screen.
-- [ ] Permission requests explained before the system prompt.
-- [ ] Personalization questions (goals, interests, experience).
-- [ ] Guest / "try without account" mode if possible.
-- [ ] Empty-state screens that teach the first action.
-- [ ] Interactive tooltip tour for the main screen.
-- [ ] Progress indicator during setup.
+*5 new items*
+
 - [ ] No analytics, ad, or tracking SDK fires before the required consent is given (EU/UK and similar).
 - [ ] ATT pre-prompt explains tracking before the iOS system prompt, shown only if you actually track.
 - [ ] Onboarding progress saved so users resume where they left off.
@@ -110,17 +105,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 3. Profile
-- [ ] Profile photo upload + crop.
-- [ ] Default avatar/initials fallback.
-- [ ] Display name, username, bio.
-- [ ] Email and phone with verified badges.
-- [ ] Edit profile screen with save/cancel.
-- [ ] Public profile view vs. own profile view.
-- [ ] Stats (posts, followers, streaks, points — whatever fits).
-- [ ] Account type badge (free, pro, verified).
-- [ ] Privacy controls: public, private, friends-only.
-- [ ] Block and report users.
-- [ ] Linked social accounts management.
+*6 new items*
+
 - [ ] EXIF/GPS metadata stripped from uploaded images.
 - [ ] Uploaded photos scanned for nudity and CSAM before public display, if profiles are public.
 - [ ] Email and phone hidden from the public profile by default.
@@ -131,17 +117,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 4. Settings
-- [ ] Account settings (email, phone, password).
-- [ ] Notification preferences per category.
-- [ ] Language selector.
-- [ ] Region/currency/units.
-- [ ] Data & privacy controls.
-- [ ] Download my data (GDPR export).
-- [ ] Clear cache.
-- [ ] Sync / backup toggle.
-- [ ] App version + build number displayed.
-- [ ] Restore purchases button.
-- [ ] Log out button.
+*7 new items*
+
 - [ ] Consent center: view and withdraw each consent (analytics, ads, personalization, marketing) as easily as it was given.
 - [ ] "Do Not Sell or Share My Personal Information" and "Limit the Use of My Sensitive Personal Information" (CPRA) where applicable.
 - [ ] Time zone setting (drives reminders, quiet hours, and email timing).
@@ -153,25 +130,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 5. Color Themes & UI
-- [ ] Light mode.
-- [ ] Dark mode.
-- [ ] Follow system theme (default).
-- [ ] Manual theme override in settings.
-- [ ] Theme persists across restarts.
-- [ ] Accent color picker (optional premium feature).
-- [ ] AMOLED/true-black variant.
-- [ ] All colors from a single token/palette file.
-- [ ] Contrast checked to WCAG AA.
-- [ ] Font size respects system settings.
-- [ ] Dynamic type / text scaling support.
-- [ ] Reduce motion support.
-- [ ] Screen reader labels on every interactive element.
-- [ ] RTL layout support if you ship Arabic/Hebrew.
-- [ ] Consistent spacing scale and corner radii.
-- [ ] Loading skeletons instead of blank screens.
-- [ ] Haptic feedback on key actions.
-- [ ] Safe area / notch handling.
-- [ ] Tablet and landscape layouts.
+*9 new items*
+
 - [ ] Color is never the only signal (errors, status, charts).
 - [ ] Touch targets at least 44×44 pt (iOS) / 48×48 dp (Android).
 - [ ] Logical focus order; fully operable by keyboard and switch control.
@@ -185,20 +145,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 6. Referral System
-- [ ] Unique referral code per user.
-- [ ] Shareable deep link (works on web + app store fallback).
-- [ ] Share sheet with WhatsApp, SMS, copy link.
-- [ ] Referral code entry during signup.
-- [ ] Deferred deep linking so the code survives install.
-- [ ] Reward for referrer (credits, free days, cash).
-- [ ] Reward for the invited user.
-- [ ] Reward only triggers after a qualifying action (verify, subscribe, first purchase).
-- [ ] Referral dashboard: invited, pending, completed, earned.
-- [ ] Notification when a referral converts.
-- [ ] Fraud checks: self-referral, duplicate device, disposable emails.
-- [ ] Cap on total rewards per user.
-- [ ] Leaderboard or tiered milestones (optional).
-- [ ] Terms for the referral program.
+*8 new items*
+
 - [ ] No rewards for app store ratings or reviews (Apple and Google both prohibit incentivized reviews).
 - [ ] Incentivized shares and endorsements disclosed per the FTC Endorsement Guides.
 - [ ] Invites are user-initiated only; the app never messages a user's contacts automatically (TCPA, CAN-SPAM, store rules).
@@ -211,21 +159,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 7. Ads
-- [ ] Ad network integrated (AdMob, AppLovin, Meta, or mediation).
-- [ ] Banner ads placed without blocking content.
-- [ ] Interstitial ads at natural breaks only.
-- [ ] Frequency cap on interstitials.
-- [ ] Rewarded video ads for bonus features/credits.
-- [ ] Native ads styled to match the app.
-- [ ] App open ad (use sparingly).
-- [ ] No ads for paying/premium users.
-- [ ] Remove-ads one-time purchase option.
-- [ ] Ad consent flow: GDPR/UMP for EU, ATT prompt for iOS.
-- [ ] CCPA opt-out for US users.
-- [ ] No ads on children-directed content without COPPA compliance.
-- [ ] Test ad IDs used in dev, real IDs in production.
-- [ ] Ad load failure handled gracefully.
-- [ ] Ad revenue tracked in analytics.
+*9 new items*
+
 - [ ] app-ads.txt / ads.txt published on the developer website listed in the stores.
 - [ ] Google-certified consent platform (IAB TCF v2.2) for EEA, UK, and Swiss traffic.
 - [ ] US state privacy signals (GPP string, Global Privacy Control) passed to ad partners; restricted data processing for opted-out users.
@@ -239,23 +174,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 8. Monetization
-- [ ] Free vs. premium feature matrix defined.
-- [ ] Paywall screen with clear benefits.
-- [ ] Subscription tiers (monthly, yearly with discount shown).
-- [ ] Lifetime / one-time purchase option.
-- [ ] Free trial with clear end date.
-- [ ] In-app purchases via StoreKit / Google Play Billing.
-- [ ] Stripe or similar for web payments.
-- [ ] Restore purchases works on reinstall.
-- [ ] Receipt validation server-side.
-- [ ] Subscription status synced across devices.
-- [ ] Manage/cancel subscription link.
-- [ ] Promo codes and discounts.
-- [ ] Renewal reminder before trial ends.
-- [ ] Grace period for failed payments.
-- [ ] Billing history / invoices.
+*22 new items*
 
-### Consumer Law & Disclosures
+### Consumer Law & Disclosures (new)
 - [ ] Price, currency, billing period, renewal price, and trial terms shown before the purchase button.
 - [ ] Auto-renewal laws met: clear terms, affirmative consent, confirmation email, online cancellation as easy as signup (US ROSCA, California and other state auto-renewal laws).
 - [ ] Annual or pre-renewal reminders where state law requires them.
@@ -268,7 +189,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Loot boxes or other random paid items disclose their odds (Apple requires this).
 - [ ] Payments blocked for sanctioned countries and persons (OFAC, EU, UK lists).
 
-### Payments Engineering
+### Payments Engineering (new)
 - [ ] Raw card data never touches your servers; hosted checkout or fields keep you in PCI DSS SAQ A scope.
 - [ ] Strong Customer Authentication / 3-D Secure for EU and UK cards.
 - [ ] One entitlement service is the single source of truth for "is this user premium".
@@ -284,17 +205,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 9. Notifications
-- [ ] Push notifications (FCM / APNs).
-- [ ] Permission asked at the right moment, not on launch.
-- [ ] In-app notification center with read/unread.
-- [ ] Email notifications for critical events.
-- [ ] Per-category toggles (marketing, social, security, reminders).
-- [ ] Quiet hours / do-not-disturb window.
-- [ ] Deep link from notification to the right screen.
-- [ ] Badge count management.
-- [ ] Unsubscribe link in every marketing email.
+*28 new items*
 
-### Notification Service
+### Notification Service (new)
 - [ ] One central notification service sends through push, email, SMS, in-app, and web push.
 - [ ] Templates per event and channel: localized, variable-driven, previewable.
 - [ ] User preferences and consent checked server-side before every send.
@@ -306,14 +219,14 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Real-time updates for the in-app center (WebSocket/SSE) if the app needs them.
 - [ ] Admin announcements/broadcasts with audience targeting, scheduling, test send, and approval (Section 17).
 
-### Push
+### Push (new)
 - [ ] Device tokens registered, refreshed, and removed on logout or when the provider reports them invalid.
 - [ ] Android 13+ POST_NOTIFICATIONS permission and a notification channel per category.
 - [ ] iOS notification categories; provisional and time-sensitive delivery used only where it fits.
 - [ ] No sensitive data in push payloads or lock-screen previews.
 - [ ] If permission was denied, an in-app prompt explains how to turn it on in OS settings.
 
-### Email
+### Email (new)
 - [ ] Transactional email provider set up (Postmark, SES, SendGrid, Resend, etc.).
 - [ ] SPF, DKIM, and DMARC configured for every sending domain.
 - [ ] Transactional and marketing mail sent from separate streams or subdomains.
@@ -324,7 +237,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Double opt-in for marketing lists in the EU (expected in Germany).
 - [ ] Templates tested in major clients and dark mode, with a plain-text version.
 
-### SMS (if used)
+### SMS (if used) (new)
 - [ ] Prior express written consent for marketing texts (TCPA), with the consent logged.
 - [ ] STOP and HELP keywords handled automatically.
 - [ ] US A2P 10DLC or toll-free verification registered.
@@ -333,25 +246,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 10. Legal & Compliance
-- [ ] Terms of Service.
-- [ ] Privacy Policy.
-- [ ] Cookie Policy (web).
-- [ ] EULA (Apple requires one or defaults to theirs).
-- [ ] Refund / cancellation policy.
-- [ ] Subscription terms with auto-renewal disclosure.
-- [ ] Community guidelines if there is user content.
-- [ ] Disclaimer if health, finance, or legal advice is involved.
-- [ ] Data Processing Agreement for B2B.
-- [ ] Open source licenses / attributions screen.
-- [ ] GDPR: consent, data export, right to be forgotten.
-- [ ] CCPA: "Do not sell my data" option.
-- [ ] COPPA: age gate if under-13 users are possible.
-- [ ] App Store privacy nutrition labels filled in.
-- [ ] Google Play Data Safety form filled in.
-- [ ] Contact/company address in the policies.
-- [ ] Version + last-updated date on each legal doc.
-- [ ] Prompt users to re-accept when terms change.
-- [ ] Legal docs reachable from settings and signup.
+*76 new items*
+
 - [ ] Acceptable Use Policy.
 - [ ] Copyright/DMCA policy with a DMCA agent registered at the US Copyright Office (renew every 3 years), if users can upload content.
 - [ ] Imprint/Impressum if you target Germany or Austria.
@@ -361,7 +257,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Past versions of every legal doc archived and retrievable.
 - [ ] A lawyer reviewed the Terms, Privacy Policy, refund, and subscription terms before launch, and the sign-off is recorded.
 
-### Terms of Service Coverage
+### Terms of Service Coverage (new)
 - [ ] Legal entity name, address, and contact.
 - [ ] Eligibility and minimum age.
 - [ ] License you grant users, and the license you get for their content.
@@ -373,7 +269,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] How the terms change and how users are told.
 - [ ] Accepted by clickwrap (an active checkbox or button), never browsewrap.
 
-### Privacy Policy Coverage
+### Privacy Policy Coverage (new)
 - [ ] Categories of data collected, their sources, and purposes.
 - [ ] Legal basis for each purpose (GDPR).
 - [ ] Who data is shared with or sold to (categories and subprocessors), including SDKs.
@@ -386,7 +282,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Notice at Collection (CCPA) at or before each point where data is collected.
 - [ ] Policy audited against the data map and every SDK so it matches what the app really does (a mismatch is an FTC deception risk).
 
-### Policy Updates & Re-Acceptance (Proof on File)
+### Policy Updates & Re-Acceptance (Proof on File) (new)
 - [ ] Every legal doc is versioned: version ID, effective date, content hash, and the full text stored unchanged.
 - [ ] Each change classified as material or minor, with the decision and reason recorded (counsel decides what counts as material).
 - [ ] Material changes announced ahead of the effective date (e.g., 30 days) by email and in-app notice, with a plain-language summary of what changed.
@@ -402,7 +298,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Publishing a new version happens through the admin dashboard with approval and an audit log entry, not by editing a live page.
 - [ ] Tests cover: new version triggers the prompt, API blocks until acceptance, the record is written with the correct version/hash, decline flow works, old versions stay retrievable.
 
-### Privacy Laws
+### Privacy Laws (new)
 - [ ] Launch markets listed, and each market's privacy law checked (GDPR, UK GDPR, CCPA/CPRA and other US states, PIPEDA/Quebec Law 25, LGPD, India DPDP, Australia Privacy Act, etc.).
 - [ ] Records of Processing Activities (GDPR Art. 30).
 - [ ] DPIA for high-risk processing (large-scale sensitive data, profiling, children, precise location).
@@ -415,20 +311,20 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] DPA signed with every vendor that handles personal data.
 - [ ] Cookie consent in EU/UK: no non-essential cookies before consent, "Reject all" as prominent as "Accept all", consent logged.
 
-### Children & Age
+### Children & Age (new)
 - [ ] Documented decision: directed at children, mixed audience, or adults only.
 - [ ] COPPA, including the 2025 amendments: verifiable parental consent, separate consent before sharing with third parties, data retention limits.
 - [ ] UK Age Appropriate Design Code (Children's Code) if UK children may use the app.
 - [ ] State app-store age-verification and kids' online safety laws checked; platform age signals used where required (Apple Declared Age Range, Google Play Age Signals).
 - [ ] Store age-rating questionnaires answered accurately.
 
-### Consumer Protection & Marketing
+### Consumer Protection & Marketing (new)
 - [ ] Marketing claims can be backed up; no fake reviews or hidden paid endorsements (FTC Consumer Reviews and Testimonials Rule).
 - [ ] No dark patterns in consent, signup, or cancellation (FTC, EU DSA Art. 25, CPRA).
 - [ ] Influencer and affiliate relationships disclosed.
 - [ ] Sweepstakes and contests have official rules.
 
-### Regulated Areas (check each one)
+### Regulated Areas (check each one) (new)
 - [ ] Health: HIPAA if you work with covered entities, FTC Health Breach Notification Rule, FDA software-as-a-medical-device check.
 - [ ] Finance: money transmission licenses, KYC/AML, securities, and lending/credit laws.
 - [ ] Education: FERPA and student-privacy laws if schools use the app.
@@ -436,7 +332,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Export controls (encryption answers in App Store Connect) and sanctions screening (OFAC, EU, UK).
 - [ ] Call or audio recording consent laws, if the app records.
 
-### Intellectual Property
+### Intellectual Property (new)
 - [ ] Trademark search done for the app name and logo; registration filed in key markets.
 - [ ] Fonts, images, icons, sounds, and music licensed for commercial use in an app.
 - [ ] Open source licenses audited (no copyleft conflicts, attributions shipped) and an SBOM generated.
@@ -444,33 +340,14 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Rights to AI-generated code and assets checked against each AI vendor's terms.
 
 ### Accessibility / Disability Compliance
-- [ ] Accessibility Statement page (separate legal doc).
-- [ ] State the standard you conform to (WCAG 2.2 Level AA).
-- [ ] State conformance level: full, partial, or non-conformant.
-- [ ] List known limitations and workarounds.
-- [ ] Accessibility feedback contact (email + response time promise).
-- [ ] Date the statement was last reviewed.
-- [ ] ADA Title III compliance (US, public-facing apps).
-- [ ] Section 508 / VPAT report if selling to US government or education.
-- [ ] European Accessibility Act compliance (mandatory since June 2025 for EU consumer apps).
-- [ ] EN 301 549 conformance for EU public sector.
-- [ ] AODA compliance if serving Ontario, Canada.
-- [ ] Third-party audit or self-assessment on record.
-- [ ] Remediation plan with dates for known gaps.
-- [ ] Statement linked from settings and website footer.
 - [ ] Accessibility claims in marketing and in the statement match the actual audit results.
 - [ ] Automated accessibility checks run in CI (Section 21).
 
 ---
 
 ## 11. Content Moderation (if user-generated content)
-- [ ] Report content button.
-- [ ] Block user.
-- [ ] Mute/hide.
-- [ ] Automated filter for spam and slurs.
-- [ ] Admin review queue.
-- [ ] Appeal process.
-- [ ] Apple requires all four: filter, report, block, and 24h action.
+*12 new items*
+
 - [ ] Written enforcement ladder (warn, restrict, suspend, ban), applied consistently.
 - [ ] Ban-evasion detection (device, payment, and email patterns).
 - [ ] Moderator tools live in the admin dashboard with RBAC and an audit log (Section 17).
@@ -478,7 +355,7 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Self-harm and crisis content routes users to help resources.
 - [ ] Moderation SLAs tracked against Apple's 24-hour expectation.
 
-### Legal Duties for Hosted Content
+### Legal Duties for Hosted Content (new)
 - [ ] CSAM: hash-matching on uploads (e.g., PhotoDNA) and mandatory reports to NCMEC (US, 18 U.S.C. §2258A); evidence preserved as the law requires, not just deleted.
 - [ ] DMCA notice-and-takedown, counter-notice, and repeat-infringer policy.
 - [ ] EU Digital Services Act if you have EU users: notice-and-action form, statement of reasons to affected users, points of contact, complaint handling, transparency reports (micro and small companies are exempt from some duties).
@@ -489,14 +366,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 12. Support & Feedback
-- [ ] Help center / FAQ.
-- [ ] Contact support form or email.
-- [ ] In-app chat support (optional).
-- [ ] Bug report with screenshot + logs attached.
-- [ ] Feature request channel.
-- [ ] Rate the app prompt (after a positive moment, not randomly).
-- [ ] Changelog / "What's new" screen.
-- [ ] Social links.
+*7 new items*
+
 - [ ] Ticketing system with SLAs and tags (Zendesk, Intercom, Help Scout, or a shared inbox with a tracker).
 - [ ] Saved replies for legal requests (data export or deletion, law enforcement, DMCA), each routed to a named owner.
 - [ ] Support staff see only what they need: PII masked, access logged (Section 17).
@@ -508,20 +379,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 13. Core App Quality
-- [ ] Offline mode / cached data.
-- [ ] Clear error states with retry.
-- [ ] No-internet banner.
-- [ ] Pull to refresh.
-- [ ] Search with history and suggestions.
-- [ ] Filters and sorting.
-- [ ] Pagination or infinite scroll.
-- [ ] Undo for destructive actions.
-- [ ] Confirmation dialogs for deletes.
-- [ ] Deep links / universal links.
-- [ ] Share functionality.
-- [ ] Force update screen for breaking versions.
-- [ ] Maintenance mode screen.
-- [ ] Feature flags for safe rollouts.
+*8 new items*
+
 - [ ] Double-submit protection and idempotent retries for every write.
 - [ ] A session that expires mid-action doesn't lose the user's input.
 - [ ] Local database migrations on app update tested.
@@ -534,20 +393,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 14. Backend & Infra
-- [ ] Auth service with JWT/refresh tokens.
-- [ ] Role-based access control.
-- [ ] API rate limiting.
-- [ ] Input validation and sanitization on the server.
-- [ ] Database backups + tested restore.
-- [ ] File/image storage with CDN.
-- [ ] Image compression and resizing.
-- [ ] Environment separation (dev, staging, prod).
-- [ ] Secrets in env vars, never in the repo.
-- [ ] Logging and error tracking (Sentry).
-- [ ] Uptime monitoring and alerts.
-- [ ] CI/CD pipeline.
-- [ ] API versioning.
-- [ ] Soft deletes and audit trail.
+*15 new items*
+
 - [ ] Infrastructure as code (Terraform, Pulumi, CDK); no environment exists only as console clicks.
 - [ ] Versioned, reviewed database migrations using zero-downtime patterns.
 - [ ] Background job queue with retries, backoff, and a dead-letter queue.
@@ -567,14 +414,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 15. Analytics
-- [ ] Analytics SDK installed (Firebase, Mixpanel, PostHog).
-- [ ] Key events defined and named consistently.
-- [ ] Funnel tracking: install → signup → activation → purchase.
-- [ ] Retention and churn dashboards.
-- [ ] Crash reporting.
-- [ ] Attribution SDK for paid ads.
-- [ ] A/B testing framework.
-- [ ] Analytics respects user opt-out.
+*9 new items*
+
 - [ ] Tracking plan document (event, properties, owner, purpose, legal basis).
 - [ ] No PII (emails, names, phone numbers, free text) in event properties.
 - [ ] Analytics gated behind consent where required, with consent state passed to every tool.
@@ -588,29 +429,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 16. Web Presence
-
-**Pick a route first — everything below branches from it.**
-- [ ] Route A: full web app (feature parity with mobile).
-- [ ] Route B: landing page only (marketing + legal + store links).
+*27 new items*
 
 ### Required Either Way
-- [ ] Domain bought and DNS pointed.
-- [ ] HTTPS with auto-renewing SSL cert.
-- [ ] www and non-www resolve to one canonical URL.
-- [ ] Privacy Policy at a stable public URL (app stores require this).
-- [ ] Terms of Service at a stable public URL.
-- [ ] Support/contact URL (app stores require this).
-- [ ] Account deletion page reachable without installing the app (Google Play requires this).
-- [ ] Accessibility Statement page.
-- [ ] Cookie banner if you use analytics or ads in the EU.
-- [ ] Favicon + Open Graph image for link previews.
-- [ ] Meta title and description per page.
-- [ ] Mobile responsive down to 360px.
-- [ ] Analytics installed.
-- [ ] Hosting + deploy pipeline set up.
-- [ ] robots.txt and sitemap.xml.
-- [ ] 404 page.
-- [ ] Legal docs linked in the footer of every page.
 - [ ] Domain on auto-renew with registrar lock and 2FA; expiry monitored.
 - [ ] Security headers: HSTS, CSP, frame-ancestors, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.
 - [ ] /.well-known/security.txt with a security contact.
@@ -626,20 +447,6 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Automated check that every legal URL returns 200.
 
 ### Route B: Landing Page Only
-- [ ] Hero with one-line value prop.
-- [ ] App Store and Google Play badges (official assets).
-- [ ] Smart badge: hide the iOS badge on Android and vice versa.
-- [ ] Screenshots or short demo video.
-- [ ] Feature highlights (3–6 blocks).
-- [ ] Pricing section if the app is paid.
-- [ ] FAQ section.
-- [ ] Email waitlist / newsletter capture.
-- [ ] Social proof: reviews, ratings, user count.
-- [ ] Deep link handler so referral links open the app or fall back to the store.
-- [ ] Apple App Site Association + Android assetlinks.json hosted at /.well-known/.
-- [ ] Referral landing page that carries the code through install.
-- [ ] Blog or changelog (optional, helps SEO).
-- [ ] Single page is fine — do not over-build.
 - [ ] Clear call to action above the fold and repeated down the page.
 - [ ] Pricing shows the full price, billing period, and renewal terms.
 - [ ] About/company section naming the legal entity.
@@ -650,32 +457,6 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Testimonials are real, used with permission, and disclose any incentive.
 
 ### Route A: Full Web App
-- [ ] Everything in Route B (marketing site still needed, usually at the root or a subdomain).
-- [ ] Decide split: marketing at `yoursite.com`, app at `/app` or `app.yoursite.com`.
-- [ ] Shared backend/API with the mobile app.
-- [ ] Same auth system — one account works on web and mobile.
-- [ ] Session handling via httpOnly cookies or secure token storage.
-- [ ] Social login configured with web redirect URIs.
-- [ ] Password reset links work on web.
-- [ ] Feature parity audit: what is web-only, mobile-only, both.
-- [ ] Responsive layouts for mobile, tablet, desktop.
-- [ ] Keyboard navigation and visible focus states.
-- [ ] Browser support matrix defined (last 2 versions).
-- [ ] Light/dark theme matches the mobile app.
-- [ ] Web payments via Stripe (avoids store commission).
-- [ ] Purchases on web unlock premium in the app and vice versa.
-- [ ] Subscription status synced across both platforms.
-- [ ] PWA: installable, manifest, icons, offline shell.
-- [ ] Web push notifications.
-- [ ] CSRF protection on state-changing requests.
-- [ ] Content Security Policy headers.
-- [ ] Rate limiting on public endpoints.
-- [ ] Server-side rendering or SSG for SEO on public pages.
-- [ ] Image optimization and lazy loading.
-- [ ] Lighthouse score checked (performance, SEO, a11y).
-- [ ] "Get the mobile app" banner for phone visitors.
-- [ ] Error boundary / crash page.
-- [ ] Admin dashboard (optional, web is the natural home for it).
 - [ ] Admin dashboard with role-based access (Section 17) is required once anyone other than you supports users.
 - [ ] Signed-in home dashboard for users: key data, recent activity, next actions, tailored to their role.
 - [ ] Cookies set Secure, HttpOnly, and SameSite; idle session timeout.
@@ -685,7 +466,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 17. Admin Dashboard & Role-Based Access
+## 17. Admin Dashboard & Role-Based Access — NEW SECTION
+*37 new items*
 
 ### Roles & Permissions
 - [ ] Staff roles defined (e.g., Owner, Admin, Support, Moderator, Finance, Analyst/Read-only, Developer).
@@ -736,7 +518,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 18. Observability & Monitoring
+## 18. Observability & Monitoring — NEW SECTION
+*23 new items*
 
 ### Logging
 - [ ] Structured (JSON) logs with request/correlation IDs across client, API, and workers.
@@ -773,7 +556,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 19. Security Hardening
+## 19. Security Hardening — NEW SECTION
+*16 new items*
+
 - [ ] Threat model for auth, payments, admin, file uploads, and data export.
 - [ ] Reviewed against OWASP ASVS (web/API) and OWASP MASVS (mobile).
 - [ ] Parameterized queries, output encoding, SSRF protection, safe deserialization.
@@ -793,7 +578,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 20. Privacy Engineering & Data Governance
+## 20. Privacy Engineering & Data Governance — NEW SECTION
+*12 new items*
+
 - [ ] Data map: every field, where it's stored, purpose, legal basis, retention, who can access it, and which vendors receive it.
 - [ ] Data minimization review: stop collecting fields you don't need.
 - [ ] Retention schedule enforced by automated deletion or anonymization jobs.
@@ -809,7 +596,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 21. Testing & QA
+## 21. Testing & QA — NEW SECTION
+*21 new items*
 
 ### Automated
 - [ ] Written test strategy: what is covered by unit, integration, E2E, and manual testing.
@@ -838,7 +626,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 22. Incident Response & Business Continuity
+## 22. Incident Response & Business Continuity — NEW SECTION
+*9 new items*
+
 - [ ] Incident response plan: severity levels, incident commander, communications owner, escalation path.
 - [ ] On-call rotation and a contact list that includes key vendors.
 - [ ] Data breach playbook: contain, assess, notify regulators within 72 hours (GDPR), notify users and state regulators as each law requires, bring in counsel and the insurer.
@@ -851,7 +641,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 23. Business & Company Setup
+## 23. Business & Company Setup — NEW SECTION
+*12 new items*
+
 - [ ] Legal entity formed; the app, domains, and accounts owned by the entity, not an individual.
 - [ ] Business bank account and bookkeeping; subscription revenue recognized correctly.
 - [ ] Tax registrations in place (EIN, VAT/OSS, sales tax where you have nexus).
@@ -867,7 +659,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 24. AI Features (if the app uses AI)
+## 24. AI Features (if the app uses AI) — NEW SECTION
+*13 new items*
+
 - [ ] Users told when they are talking to AI or seeing AI-generated content (EU AI Act Art. 50 and US state bot-disclosure laws; confirm current effective dates).
 - [ ] AI-generated media labeled or marked where required.
 - [ ] AI vendor terms: no training on your users' data, retention limits, DPA signed.
@@ -884,7 +678,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 25. Documentation & Handoff
+## 25. Documentation & Handoff — NEW SECTION
+*9 new items*
+
 - [ ] README with one-command setup, run, test, and deploy.
 - [ ] `.env.example` listing every variable with a description (no real values).
 - [ ] Architecture diagram and service inventory.
@@ -898,21 +694,8 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 ---
 
 ## 26. Launch Prep
-- [ ] App icon in all required sizes.
-- [ ] Splash/launch screen.
-- [ ] Store screenshots for every device size.
-- [ ] App preview video.
-- [ ] Store title, subtitle, keywords, description.
-- [ ] Marketing website or landing page.
-- [ ] Support URL and privacy URL live.
-- [ ] Demo account for app review.
-- [ ] Beta testing via TestFlight / Play internal track.
-- [ ] Localization for target markets.
-- [ ] Tested on oldest supported OS version.
-- [ ] Tested on small and large screens.
-- [ ] Performance: cold start under 2s.
-- [ ] App size optimized.
-- [ ] Rollback plan for a bad release.
+*14 new items*
+
 - [ ] Self-review against the Apple App Review Guidelines and Google Play Developer Program Policies.
 - [ ] Apple privacy manifest (PrivacyInfo.xcprivacy), including required-reason APIs and third-party SDK manifests.
 - [ ] Export compliance / encryption answers set (ITSAppUsesNonExemptEncryption).
@@ -930,7 +713,9 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 
 ---
 
-## 27. Post-Launch Operations
+## 27. Post-Launch Operations — NEW SECTION
+*11 new items*
+
 - [ ] Crash rate, reviews, and support tickets checked daily for the first two weeks.
 - [ ] Dependency and security updates on a fixed schedule.
 - [ ] Yearly platform requirements met: Play target API, Xcode/iOS SDK minimums, store policy changes.
@@ -942,3 +727,6 @@ Items and sections that say "if" are conditional. Skip them only after deciding 
 - [ ] Expiry dates tracked for signing certificates, push keys, provisioning profiles, and domains.
 - [ ] Churn and cancellation reasons reviewed and fed into the roadmap.
 - [ ] Shutdown plan ready: user notice period, data export window, refunds, store removal.
+
+---
+*Not legal advice. The legal items tell you what to check and which documents to have. Confirm with a lawyer in each market you launch in.*
