@@ -9,8 +9,8 @@ security, testing, and incident response. These features are boring to build, ea
 postpone, and expensive to discover missing during app review, a legal complaint, or an
 outage after launch.
 
-**[→ Open the checklist](list.md)**: 27 sections, ~759 items.
-**[→ What's new in v2](CHANGES-v2.md)**: the 453 items and 10 sections added since v1.
+**[→ Open the checklist](list.md)**: 27 sections, ~788 items.
+**[→ What's new in v2](CHANGES-v2.md)**: the 482 items and 10 sections added since v1.
 
 ## What's in it
 
@@ -34,7 +34,7 @@ outage after launch.
 | 16 | Web Presence | Landing page vs. full web app, legal pages, security headers, status page |
 | 17 | Admin Dashboard & RBAC | Roles, permission matrix, audit log, impersonation, DSAR queue, teams |
 | 18 | Observability & Monitoring | Logs, metrics, tracing, error tracking, SLOs, alerts, dashboards |
-| 19 | Security Hardening | Threat model, OWASP, scanning, MFA everywhere, pen test |
+| 19 | Security Hardening | Threat model, OWASP, input limits, rate limiting, scanning, MFA everywhere, pen test |
 | 20 | Privacy Engineering | Data map, retention jobs, privacy request tooling, vendor register |
 | 21 | Testing & QA | Unit/integration/E2E, authz matrix, consent, a11y, CI gates |
 | 22 | Incident Response | Breach playbook, on-call, runbooks, restore drills |

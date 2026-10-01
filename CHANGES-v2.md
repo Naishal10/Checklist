@@ -9,13 +9,13 @@ catch up if you already worked through v1.
 ## Summary
 
 - **v1:** 17 sections, 306 items.
-- **v2:** 27 sections, 759 items: **453 new items** and **10 new sections**.
+- **v2:** 27 sections, 788 items: **482 new items** and **10 new sections**.
 - **Nothing was removed.** Every v1 item is still in `list.md`, worded the same.
 - **Renumbered:** Launch Prep moved from Section 17 to **Section 26**, so it now comes after
   the new operational sections. Sections 1–16 keep their numbers.
 - **Main themes:** proving legal compliance (consent records, re-acceptance of updated Terms with stored proof, privacy law coverage, children,
   consumer and auto-renewal law, hosted-content duties, IP), the notification system, the
-  admin dashboard with role-based access, observability, security hardening, testing, incident
+  admin dashboard with role-based access, observability, security hardening (including input limits and rate limiting), testing, incident
   response, company setup, AI features, and post-launch operations.
 
 | Section | New items | Note |
@@ -38,7 +38,7 @@ catch up if you already worked through v1.
 | 16. Web Presence | 27 |  |
 | 17. Admin Dashboard & Role-Based Access | 37 | New section |
 | 18. Observability & Monitoring | 23 | New section |
-| 19. Security Hardening | 16 | New section |
+| 19. Security Hardening | 45 | New section |
 | 20. Privacy Engineering & Data Governance | 12 | New section |
 | 21. Testing & QA | 21 | New section |
 | 22. Incident Response & Business Continuity | 9 | New section |
@@ -557,7 +557,7 @@ catch up if you already worked through v1.
 ---
 
 ## 19. Security Hardening — NEW SECTION
-*16 new items*
+*45 new items*
 
 - [ ] Threat model for auth, payments, admin, file uploads, and data export.
 - [ ] Reviewed against OWASP ASVS (web/API) and OWASP MASVS (mobile).
@@ -575,6 +575,39 @@ catch up if you already worked through v1.
 - [ ] Third-party penetration test before launch and after major changes; findings fixed or risk-accepted in writing.
 - [ ] Vulnerability disclosure policy (bug bounty optional).
 - [ ] SOC 2 / ISO 27001 roadmap if you sell to businesses.
+
+### Input Limits & Validation
+- [ ] Every text field has a maximum (and where sensible, minimum) length, enforced in the UI, on the server, and in the database column.
+- [ ] Length limits documented per field (name, username, bio, post, comment, message, search query, email, URL) with a visible character counter on long fields.
+- [ ] Every request validated on the server against a schema (types, formats, ranges, allowed values); unknown fields rejected.
+- [ ] Client-side validation is for convenience only; the server never trusts it.
+- [ ] Request body size limit, JSON depth limit, and header size limit set at the gateway and the app.
+- [ ] Numeric limits enforced: quantities, amounts, and IDs can't be negative, zero, or absurdly large where that makes no sense.
+- [ ] Arrays and batch endpoints capped (maximum items per request).
+- [ ] Pagination has a maximum page size; no endpoint can return an unbounded list.
+- [ ] File uploads capped by size, count, dimensions, and duration; type checked by content, not just extension.
+- [ ] Text trimmed and Unicode-normalized; control characters, zero-width characters, and null bytes stripped or rejected.
+- [ ] User-entered HTML or Markdown sanitized with an allow-list before it is stored or rendered.
+- [ ] Only allow-listed fields can be written by users (no mass assignment of role, price, owner ID, or verified flags).
+- [ ] Redirect and callback URLs checked against an allow-list (no open redirects).
+- [ ] Regular expressions safe from catastrophic backtracking; search and filter inputs length-limited.
+- [ ] GraphQL depth, complexity, and alias limits; introspection off in production (if GraphQL).
+- [ ] Error responses never expose stack traces, SQL, file paths, or internal IDs.
+
+### Rate Limiting & Abuse Controls
+- [ ] Rate limits on every endpoint, with tighter limits by user, IP, device, and API key where it matters.
+- [ ] Strict limits on sensitive endpoints: login, signup, password reset, OTP/verification send and verify, email change, promo/referral code entry.
+- [ ] Limits on anything that costs money per call: SMS, email, push, AI requests, file processing, exports.
+- [ ] OTP and verification codes: limited attempts, short expiry, cooldown between resends, invalidated after use.
+- [ ] Limits on content creation (posts, comments, messages, invites, reports, uploads) to stop spam and scraping.
+- [ ] Per-user quotas for storage, uploads, and API usage, shown to the user before they hit them.
+- [ ] Rate-limited responses return 429 with a Retry-After header; clients back off and show a friendly message.
+- [ ] Limits stored centrally (e.g., Redis) so they hold across multiple servers.
+- [ ] Timeouts on every inbound request, outbound call, and database query; slow or expensive queries capped.
+- [ ] Idempotency or duplicate detection so repeated taps and retries can't create duplicates or double charges.
+- [ ] Enumeration blocked: sequential IDs not guessable, and responses don't reveal whether a user, email, or code exists.
+- [ ] Limits and blocks are logged and alerted (Section 18), with an admin way to lift a block for a real user.
+- [ ] Tests cover: over-length input rejected, oversized body rejected, limit exceeded returns 429, limits reset correctly.
 
 ---
 
